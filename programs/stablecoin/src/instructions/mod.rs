@@ -1,8 +1,11 @@
 pub use admin::*;
-mod admin;
+pub mod admin;
 
 pub use deposit::*;
-mod deposit;
+pub mod deposit;
 
 pub use utils::*;
 mod utils;
+
+pub use withdraw::*;
+pub mod withdraw;

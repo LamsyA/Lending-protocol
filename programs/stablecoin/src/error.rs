@@ -6,4 +6,6 @@ pub enum CustomError {
     InvaildPrice,
     #[msg("You are below the min health factor")]
     BelowMinHealthFactor,
+    #[msg("cannot liquidate, Health factor is above liquidation threshold")]
+    AboveLiquidationThreshold,
 }

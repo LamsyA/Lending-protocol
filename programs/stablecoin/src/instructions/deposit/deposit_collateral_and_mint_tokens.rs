@@ -1,4 +1,7 @@
-use crate::{Collateral, Config, SEED_COLLATERAL_ACCOUNT, SEED_CONFIG_ACCOUNT, SEED_SOL_ACCOUNT};
+use crate::{
+    check_health_factor, Collateral, Config, SEED_COLLATERAL_ACCOUNT, SEED_CONFIG_ACCOUNT,
+    SEED_SOL_ACCOUNT,
+};
 use anchor_lang::prelude::*;
 use anchor_spl::{
     associated_token::AssociatedToken,
@@ -69,6 +72,12 @@ pub fn process_deposit_collateral_and_mint_tokens(
         collateral_account.bump = ctx.bumps.collateral_account;
         collateral_account.bump_sol_account = ctx.bumps.sol_account;
     }
+
+    check_health_factor(
+        &ctx.accounts.collateral_account,
+        &ctx.accounts.config_account,
+        &ctx.accounts.price_update,
+    )?;
 
     deposit_sol(
         &ctx.accounts.depositor,
